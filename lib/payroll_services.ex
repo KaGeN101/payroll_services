@@ -1,16 +1,10 @@
 defmodule PayrollServices do
   @moduledoc """
-  Documentation for PayrollServices.
-  """
+  PayrollServices keeps the contexts that define your domain
+  and business logic.
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> PayrollServices.hello()
-      :world
-
+  Contexts are also responsible for managing your data, regardless
+  if it comes from the database, an external API or others.
   """
   def hello do
     :world

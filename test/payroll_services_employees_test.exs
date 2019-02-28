@@ -3,7 +3,7 @@ defmodule PayrollServicesEmployeesTest do
   doctest PayrollServices
 
   test "fetch employees" do
-    employees = PayrollServices.Employees.fetch()
+    employees = PayrollServices.Employees.list_employees()
     assert Enum.count(employees) >= 5
   end
 
