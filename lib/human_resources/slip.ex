@@ -1,4 +1,4 @@
-defmodule Salaries.Slip do
+defmodule HumanResources.Slip do
   use Ecto.Schema
   import Ecto.Changeset
 

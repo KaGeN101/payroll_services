@@ -6,7 +6,7 @@ defmodule PayrollServices.Salaries do
   import Ecto.Query, warn: false
   alias PayrollServices.Repo
 
-  alias Salaries.Slip
+  alias HumanResources.Slip
 
   @doc """
   Returns the list of slips.

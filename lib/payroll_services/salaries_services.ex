@@ -1,8 +1,12 @@
 defmodule PayrollServices.SalariesServices do
   @moduledoc """
-   Provides a set of functional services with regards to salaries
-  """
+  PayrollServices.SalariesServices keeps the contexts that define your domain
+  and business logic for specific employee oreinted processes
 
+  Contexts are also responsible for managing your data, regardless
+  if it comes from the database, an external API or others.
+  """
+  
   def calculate_tax(gross) when gross > 180000 do 
   	calculate_tax_bracket_4(gross)
   end

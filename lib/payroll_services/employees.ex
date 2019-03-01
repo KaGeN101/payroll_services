@@ -1,6 +1,6 @@
 defmodule PayrollServices.Employees do
   @moduledoc """
-  The Employees context.
+  The Employees context - The database access context.
   """
 
   import Ecto.Query, warn: false

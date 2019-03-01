@@ -3,8 +3,7 @@ defmodule PayrollServices.SalariesTest do
 
   #alias PayrollServices.Salaries
 
- 
-    alias Salaries.Slip
+    alias HumanResources.Slip
 
     @valid_attrs %{employee_id: 42, gross_income: 42, income_tax: 42, pay_period: 42}
     @update_attrs %{employee_id: 43, gross_income: 43, income_tax: 43, pay_period: 43}
