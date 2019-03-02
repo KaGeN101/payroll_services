@@ -21,6 +21,26 @@ defmodule PayrollServices.Employees do
   end
 
   @doc """
+  Searches for employee by id or by first or last name.
+  """
+  def search_employees(search_term) do
+    case Integer.parse(search_term) do 
+      {int_val, ""} -> 
+        case Repo.get(Employee, int_val) do
+          employee when is_map(employee) -> [employee]
+          nil -> []
+        end  
+      _ ->  
+      wildcard_search = "%#{search_term}%"
+
+      query = from employee in Employee,
+      where: ilike(employee.first_name, ^wildcard_search),
+      or_where: ilike(employee.last_name, ^wildcard_search)
+      Repo.all(query)
+    end  
+  end  
+
+  @doc """
   Gets a single employee.
 
   Raises `Ecto.NoResultsError` if the Employee does not exist.
