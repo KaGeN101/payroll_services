@@ -37,8 +37,11 @@ defmodule HumanResources.Slip do
     |> validate_required([:employee_id, :pay_period, :gross_income, :income_tax])
   end
 
+  def net_income(gross_income, income_tax) when is_integer(gross_income) do
+    gross_income - income_tax
+  end
   def net_income(gross_income, income_tax) do
-    Kernel.trunc(Float.round(gross_income - income_tax))
+    Kernel.trunc(Float.round(gross_income) - income_tax)
   end
   
   def pension(employee) do

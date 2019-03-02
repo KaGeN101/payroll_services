@@ -35,7 +35,10 @@ defmodule PayrollServices.Salaries do
       ** (Ecto.NoResultsError)
 
   """
-  def get_slip!(id), do: Repo.get!(Slip, id)
+  def get_slip!(id) do 
+    slip = Repo.get!(Slip, id)
+    Repo.preload(slip, :employee)
+  end  
 
   @doc """
   Creates a slip.

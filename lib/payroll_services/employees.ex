@@ -85,6 +85,10 @@ defmodule PayrollServices.Employees do
 
   """
   def delete_employee(%Employee{} = employee) do
+    employee = Repo.preload(employee, :slips)
+    for slip <- employee.slips do
+      Repo.delete(slip)
+    end  
     Repo.delete(employee)
   end
 
@@ -100,4 +104,9 @@ defmodule PayrollServices.Employees do
   def change_employee(%Employee{} = employee) do
     Employee.changeset(employee, %{})
   end
+
+  def preload(%Employee{} = employee) do
+    Repo.preload(employee, :slips)
+  end
+    
 end
