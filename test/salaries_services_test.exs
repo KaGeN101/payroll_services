@@ -28,4 +28,12 @@ defmodule SalariesServicesTest do
   	assert SalariesServices.calculate_tax(250000) == 7171
   end	
 
+  test "calculate tax bracket 4 with float in" do
+  	assert SalariesServices.calculate_tax(250000.0) == 7171
+  end
+
+  test "calculate tax from annual salary" do
+  	assert SalariesServices.calculate_tax(335577) == 10380
+  end 	
+
 end

@@ -9,6 +9,8 @@ defmodule HumanResources.Employee do
     field :last_name, :string
     field :payment_start_date, :date
     field :pension_contribution, :integer
+ 
+    has_many :slips, HumanResources.Slip
 
     timestamps()
   end

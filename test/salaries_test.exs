@@ -8,6 +8,7 @@ defmodule PayrollServices.SalariesTest do
     @valid_attrs %{employee_id: 42, gross_income: 42, income_tax: 42, pay_period: 42}
     @update_attrs %{employee_id: 43, gross_income: 43, income_tax: 43, pay_period: 43}
     @invalid_attrs %{employee_id: nil, gross_income: nil, income_tax: nil, pay_period: nil}
+    @sybrand %HumanResources.Employee{first_name: "Sybrand", last_name: "Viljoen", annual_salary: 335577, pension_contribution: 18, payment_start_date: ~D[2019-06-01]}
 
     def slip_fixture(attrs \\ %{}) do
       {:ok, slip} =
@@ -65,5 +66,19 @@ defmodule PayrollServices.SalariesTest do
       slip = slip_fixture()
       assert %Ecto.Changeset{} = PayrollServices.Salaries.change_slip(slip)
     end
+
+    test "net income for sybrand" do
+      income_tax = PayrollServices.SalariesServices.calculate_tax(@sybrand.annual_salary)
+      assert income_tax == 10380
+      assert Slip.net_income((@sybrand.annual_salary/12), income_tax) == 17585
+    end  
+
+    test "pension fund contribution for sybrand" do
+      assert Slip.pension(@sybrand) == 5034
+    end  
+
+    test "payperiod lookup" do
+      assert Slip.pay_period_to_s(3) == "1 May 2019 - 31 May 2019"
+    end  
 
 end
