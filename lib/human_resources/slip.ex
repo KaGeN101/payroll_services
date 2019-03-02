@@ -48,8 +48,11 @@ defmodule HumanResources.Slip do
      Kernel.trunc(Float.round((employee.annual_salary/12) * (employee.pension_contribution / 100)))
   end    
 
-  def pay_period_to_s(period) do
+  def pay_period_to_s(period) when period >= 1 and period <= 12 do
     @period_lookup[period]
     |> String.replace("YEAR", Integer.to_string(DateTime.utc_now.year))
   end
+  def pay_period_to_s(period), do: ""
+
+
 end

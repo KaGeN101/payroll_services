@@ -26,7 +26,8 @@ defmodule PayrollServices.SalariesTest do
 
     test "get_slip!/1 returns the slip with given id" do
       slip = slip_fixture()
-      assert PayrollServices.Salaries.get_slip!(slip.id) == slip
+      slip_db = PayrollServices.Salaries.get_slip!(slip.id)
+      assert slip_db.id == slip.id
     end
 
     test "create_slip/1 with valid data creates a slip" do
@@ -53,7 +54,7 @@ defmodule PayrollServices.SalariesTest do
     test "update_slip/2 with invalid data returns error changeset" do
       slip = slip_fixture()
       assert {:error, %Ecto.Changeset{}} = PayrollServices.Salaries.update_slip(slip, @invalid_attrs)
-      assert slip == PayrollServices.Salaries.get_slip!(slip.id)
+      assert slip.id == PayrollServices.Salaries.get_slip!(slip.id).id
     end
 
     test "delete_slip/1 deletes the slip" do

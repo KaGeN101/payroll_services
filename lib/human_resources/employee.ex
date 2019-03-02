@@ -20,5 +20,7 @@ defmodule HumanResources.Employee do
     employee
     |> cast(attrs, [:first_name, :last_name, :annual_salary, :pension_contribution, :payment_start_date])
     |> validate_required([:first_name, :last_name, :annual_salary, :pension_contribution, :payment_start_date])
+    |> validate_inclusion(:pension_contribution, 0..50)
+    |> validate_number(:annual_salary, greater_than: 0)
   end
 end

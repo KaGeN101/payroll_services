@@ -19,7 +19,7 @@ defmodule PayrollServices.SalariesServices do
   def calculate_tax(gross) when gross > 18200 and gross < 37001 do 
   	calculate_tax_bracket_1(gross)
   end
-  def calculate_tax(gross), do: 0
+  def calculate_tax(_gross), do: 0
 
 	
   defp calculate_tax_bracket_1(gross), do: Kernel.trunc(Float.round((0 + (gross - 18200) * 0.19) / 12))
@@ -28,6 +28,7 @@ defmodule PayrollServices.SalariesServices do
   defp calculate_tax_bracket_4(gross), do: Kernel.trunc(Float.round((54547 + (gross - 180000) * 0.45) / 12))
 
 
+  #def create_next_slip(employee_id) when employee_id == nil, do: {:error, %Ecto.Changeset{}}
   def create_next_slip(employee_id) do
     employee = PayrollServices.Repo.get!(HumanResources.Employee, employee_id)
     employee = PayrollServices.Repo.preload(employee, :slips)
