@@ -53,9 +53,7 @@ defmodule PayrollServices.Salaries do
 
   """
   def create_slip(attrs \\ %{}) do
-    %Slip{}
-    |> Slip.changeset(attrs)
-    |> Repo.insert()
+    PayrollServices.SalariesServices.create_next_slip(attrs["employee_id"])
   end
 
   @doc """

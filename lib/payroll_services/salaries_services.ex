@@ -27,4 +27,20 @@ defmodule PayrollServices.SalariesServices do
   defp calculate_tax_bracket_3(gross), do: Kernel.trunc(Float.round((17547 + (gross - 80000) * 0.37) / 12))
   defp calculate_tax_bracket_4(gross), do: Kernel.trunc(Float.round((54547 + (gross - 180000) * 0.45) / 12))
 
+
+  def create_next_slip(employee_id) do
+    employee = PayrollServices.Repo.get!(HumanResources.Employee, employee_id)
+    employee = PayrollServices.Repo.preload(employee, :slips)
+    next_period = Enum.count(employee.slips) + 1
+    next_slip = PayrollServices.Repo.insert!(%HumanResources.Slip{
+      employee_id: employee.id, 
+      gross_income: Kernel.trunc(Float.round(employee.annual_salary/12)), 
+      income_tax: PayrollServices.SalariesServices.calculate_tax(employee.annual_salary), 
+      pay_period: next_period
+    })
+    next_slip = PayrollServices.Repo.preload(next_slip, :employee)
+    {:ok, next_slip}
+  end
+    
+
 end
